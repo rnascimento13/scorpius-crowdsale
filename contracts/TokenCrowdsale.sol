@@ -12,9 +12,9 @@ contract TokenCrowdsale is AllowanceCrowdsale, TimedCrowdsale, CappedCrowdsale {
     using SafeMath for uint256;
 
 	// Track investor contributions
-  	uint256 public investorMinCap = 50000000000000000; // 0.05 ether
-  	uint256 public investorHardCap = 4000000000000000000; // 4 ether
-	uint256 public crowdCap = 300000000000000000000; // 300 ether
+  	uint256 public investorMinCap = 100000000000000000; // 0.10 ether
+  	uint256 public investorHardCap = 2000000000000000000; // 2 ether
+	uint256 public crowdCap = 15000000000000000000; // 15 ether
   	mapping(address => uint256) public contributions;
 
 	constructor(

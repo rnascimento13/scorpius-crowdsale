@@ -11,7 +11,7 @@ import { TokenCrowdsale } from "./types/TokenCrowdsale";
 import { IERC20 } from "./types/IERC20";
 import logger from "./logger";
 import ProgressBar from "./components/progress-bar";
-import logo1 from "./assets/logo1.gif";
+import logo1 from "./assets/logo.png";
 
 interface Props {
   crowdsaleAddress: string;
@@ -84,12 +84,12 @@ const ICOToken = ({ crowdsaleAddress }: Props) => {
   const [startTime, setStartTime] = useState("0");
   const [closeTime, setCloseTime] = useState("0");
   const [raised, setRaised] = useState("0");
-  const [amount, setAmount] = useState(50000);
+  const [amount, setAmount] = useState(100000);
   const [balance, setBalance] = useState<number| null>();
   const [disabled, setDisabled] = useState(false);
   const [warningMessage, setWarningMessage] = useState("");
   const [isConnected, setIsConnected] = useState(false);
-  
+
   // fetch crowdsale token info
   const fetchCrowdsaleTokenInfo = () => {
     // logger.warn("fetchCrowdsaleTokenInfo");
@@ -112,6 +112,7 @@ const ICOToken = ({ crowdsaleAddress }: Props) => {
     contract
       .weiRaised()
       .then((raised) => setRaised(BigNumber.from(raised).toString()))
+      // .then((raised) => setRaised(BigNumber.from(raised).add(parseUnits('10.96', 18)).toString()))
       .catch(logger.error);
     contract
       .closingTime()
@@ -211,8 +212,8 @@ React.useEffect((): any => {
     _warningMessage = "Please connect to BSC first";
   } else if (chainId !== 56) {
     _warningMessage = "Please connect to Binance Smart Chain";
-  } else if (Number(formatUnits(balance ?? 0, 18)) < 0.05 ) {
-    _warningMessage = "You need more funds, Minimum 0.05 BNB";
+  } else if (Number(formatUnits(balance ?? 0, 18)) < 0.1 ) {
+    _warningMessage = "You need more funds, Minimum 0.10 BNB";
   } else if (Number(formatUnits(balance ?? 0, 18)) < totalCost) {
     _warningMessage = "You do not have enough BNB";
   } else if (Number(formatUnits(balance ?? 0, 18)) > totalCost) {
@@ -268,9 +269,9 @@ React.useEffect((): any => {
       <div className="shadow stats">
         <div className="stat">
           <div className="stat-title">Total Raised</div>
-          <div className="stat-value">{formatUnits(raised ?? 0, 18)} / 300 BNB</div>
+          <div className="stat-value">{formatUnits(raised ?? 0, 18)} / 15 BNB</div>
           <div className="stat-title">
-            <ProgressBar completed={(Number(formatUnits(raised ?? 0, 18)) /300 *100).toString().substr(0,4)} />
+            <ProgressBar completed={(Number(formatUnits(raised ?? 0, 18)) /15 *100).toString().substr(0,4)} />
           </div>
         </div>
       </div>
@@ -278,7 +279,7 @@ React.useEffect((): any => {
         <div className="text-center card">
         {/* <div className="card-body"> */}
         <div className="card-body px-10" style={{width: "480px"}}>
-            <h2 className="card-title">Pre-Sale Charity Tokens</h2>
+            <h2 className="card-title">Pre-Sale MegaTRON Tokens</h2>
             <div className="shadow stats">
               <div className="stat px-1">
                 <div className="stat-title">Total</div>
@@ -294,9 +295,9 @@ React.useEffect((): any => {
               // min="400000"
               // max="12000000"
               // step="40000"
-              min="50000"
-              max="4000000"
-              step="50000"
+              min="100000"
+              max="2000000"
+              step="100000"
               value={amount}
               onChange={(evt) => setAmount(evt.target.valueAsNumber)}
               className="range range-accent"
